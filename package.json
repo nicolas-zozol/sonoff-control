@@ -1,0 +1,30 @@
+{
+  "name": "sonoff",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start sonoff/index.js && pm2 start express/run.js",
+    "restart": "pm2 restart sonoff/index.js && pm2 restart express/run.js",
+    "stop": "pm2 stop sonoff/index.js && pm2 stop express/run.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pm2": "^4.5.1",
+    "ewelink-api": "^3.1.1",
+    "dotenv": "^8.2.0",
+    "winston": "^3.3.3",
+    "plop-logger": "^3.1.3",
+    "body-parser": "~1.6.6",
+    "cookie-parser": "~1.3.2",
+    "debug": "~1.0.4",
+    "express": "^4.15.4",
+    "hbs": "~0.0.6",
+    "hjs": "~0.0.6",
+    "less": "^2.5.1",
+    "morgan": "~1.2.3",
+    "serve-favicon": "~2.0.1"
+  }
+}
