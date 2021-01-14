@@ -23,7 +23,7 @@ const connection = new ewelink({
 let intervalId;
 connection.getDevices().then(()=> {
     work()
-    intervalId = setInterval(work, 10*60*1000)
+    intervalId = setInterval(work, 0.5*60*1000)
 })
 
 

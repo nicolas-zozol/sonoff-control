@@ -2,7 +2,7 @@
  * Copyright Nicolas Zozol, Robusta Code 2021
  */
 var rules = require('../rules/rules.json')
-const {Logger} = require('plop-logger')
+const {Logger, LogLevel} = require('plop-logger')
 require('../logger/logger-config')
 
 // Get a logger with the `plop` name
@@ -13,9 +13,10 @@ function deviceByName(name) {
 }
 
 function shouldPowerOn(name, actualTemperature) {
-    const logger = Logger.getLogger(device.name)
-
     const device = deviceByName(name)
+
+    const logger = Logger.getLogger(device.name)
+    logger.level = LogLevel.Debug;
 
     if (isHoliday(device)) {
         logger.debug('isHoliday |' + debugConditions(actualTemperature))
