@@ -13,19 +13,23 @@ function deviceByName(name) {
 }
 
 function shouldPowerOn(name, actualTemperature) {
+    const logger = Logger.getLogger(device.name)
 
     const device = deviceByName(name)
 
     if (isHoliday(device)) {
+        logger.debug('isHoliday |' + debugConditions(actualTemperature))
         return shouldRunMinTemperature(device, actualTemperature)
     }
     if (isWorkday(device)) {
+        logger.debug('isWorkday |' + debugConditions(actualTemperature))
         return isEcoWorkday(device)
             ? shouldRunEcoWorkday(device, actualTemperature)
             : shouldRunComfortWorkday(device, actualTemperature)
     }
 
     if (isHomeDay(device)) {
+        logger.debug('isHomeday |' + debugConditions(actualTemperature))
         return isEcoHomeDay(device)
             ? shouldRunEcoHomeDay(device, actualTemperature)
             : shouldRunComfortHomeDay(device, actualTemperature)
@@ -39,17 +43,19 @@ function shouldRunComfortHomeDay(device, actualTemperature) {
     const logger = Logger.getLogger(device.name)
 
     if (!isHomeDay(device)) {
-        logger.error('Assertion error: shouldRunComfortHomeDay: should be a home day - ' + debugConditions(actualTemperature))
+        logger.error('Assertion error: shouldRunComfortHomeDay: should be a home day | ' + debugConditions(actualTemperature))
         throw 'Assertion error: should be a home day'
     }
     if (isEcoHomeDay(device)) {
-        logger.error('Assertion error: shouldRunComfortHomeDay: should NOT be in Eco time a home day - ' + debugConditions(actualTemperature))
+        logger.error('Assertion error: shouldRunComfortHomeDay: should NOT be in Eco time a home day | ' + debugConditions(actualTemperature))
         throw 'Assertion error: should NOT be in Eco time for home day'
     }
 
     const result = actualTemperature < device.comfortTemperature
     if (result) {
-        logger.info('shouldRunComfortHomeDay ON - ' + debugConditions(actualTemperature))
+        logger.info('shouldRunComfortHomeDay ON | ' + debugConditions(actualTemperature))
+    } else {
+        logger.debug('NO shouldRunComfortHomeDay | ' + debugConditions(actualTemperature))
     }
     return result
 }
@@ -66,6 +72,8 @@ function shouldRunEcoHomeDay(device, actualTemperature) {
     const result = isEcoHomeDay(device) && actualTemperature < device.ecoTemperature
     if (result) {
         logger.info('shouldRunEcoHomeDay ON - ' + debugConditions(actualTemperature))
+    } else {
+        logger.debug('NO shouldRunEcoHomeDay | ' + debugConditions(actualTemperature))
     }
     return result
 }
@@ -92,6 +100,8 @@ function shouldRunComfortWorkday(device, actualTemperature) {
     const result = actualTemperature < device.comfortTemperature
     if (result) {
         logger.info('shouldRunComfortWorkday ON - ' + debugConditions(actualTemperature))
+    } else {
+        logger.debug('NO shouldRunComfortWorkday | ' + debugConditions(actualTemperature))
     }
     return result
 }
@@ -106,9 +116,11 @@ function shouldRunEcoWorkday(device, actualTemperature) {
         throw 'Assertion error: should be a workday'
     }
 
-    const result =  isEcoWorkday(device) && actualTemperature < device.ecoTemperature
-    if (result){
+    const result = isEcoWorkday(device) && actualTemperature < device.ecoTemperature
+    if (result) {
         logger.info('isEcoWorkday ON - ' + debugConditions(actualTemperature))
+    } else {
+        logger.debug('NO shouldRunEcoWorkday | ' + debugConditions(actualTemperature))
     }
     return result
 }
@@ -148,6 +160,8 @@ function shouldRunMinTemperature(device, actualTemperature) {
     const result = actualTemperature < device.minTemperature
     if (result) {
         logger.info('shouldRunComfortWorkday ON - ' + debugConditions(actualTemperature))
+    } else {
+        logger.debug('NO shouldRunMinTemperature | ' + debugConditions(actualTemperature))
     }
     return result
 }
