@@ -2,8 +2,8 @@
  * Copyright Nicolas Zozol, Robusta Code 2021
  */
 var rules = require('../rules/rules.json')
-const {Logger, LogLevel} = require('plop-logger')
-require('../logger/logger-config')
+
+const  {getLogger} = require('../logger/logger-factory')
 
 // Get a logger with the `plop` name
 
@@ -14,8 +14,8 @@ function deviceByName(name) {
 
 function shouldPowerOn(name, actualTemperature) {
     const device = deviceByName(name)
-    const logger = Logger.getLogger(device.name)
-    logger.level = LogLevel.Debug;
+    const logger = getLogger(device.name)
+
 
     if (isHoliday(device)) {
         logger.debug('isHoliday |' + debugConditions(actualTemperature))
@@ -43,7 +43,7 @@ function shouldPowerOn(name, actualTemperature) {
 
 
 function shouldRunComfortHomeDay(device, actualTemperature) {
-    const logger = Logger.getLogger(device.name)
+    const logger = getLogger(device.name)
 
     if (!isHomeDay(device)) {
         logger.error('Assertion error: shouldRunComfortHomeDay: should be a home day | ' + debugConditions(actualTemperature))
@@ -65,7 +65,7 @@ function shouldRunComfortHomeDay(device, actualTemperature) {
 
 
 function shouldRunEcoHomeDay(device, actualTemperature) {
-    const logger = Logger.getLogger(device.name)
+    const logger = getLogger(device.name)
 
     if (!isHomeDay(device)) {
         logger.error('Assertion error: shouldRunEcoHomeDay: should be a home day - ' + debugConditions(actualTemperature))
@@ -90,7 +90,7 @@ function isEcoHomeDay(device) {
 
 // test ok
 function shouldRunComfortWorkday(device, actualTemperature) {
-    const logger = Logger.getLogger(device.name)
+    const logger = getLogger(device.name)
 
     if (!isWorkday(device)) {
         logger.error('Assertion error: shouldRunComfortWorkday: should be a work day - ' + debugConditions(actualTemperature))
@@ -112,7 +112,7 @@ function shouldRunComfortWorkday(device, actualTemperature) {
 
 // test ok
 function shouldRunEcoWorkday(device, actualTemperature) {
-    const logger = Logger.getLogger(device.name)
+    const logger = getLogger(device.name)
 
     if (!isWorkday(device)) {
         logger.error('Assertion error: shouldRunEcoWorkday: should be a work day - ' + debugConditions(actualTemperature))
@@ -154,7 +154,7 @@ function isHoliday(device) {
 
 // test ok
 function shouldRunMinTemperature(device, actualTemperature) {
-    const logger = Logger.getLogger(device.name)
+    const logger = getLogger(device.name)
 
     if (!isHoliday(device)) {
         logger.error('Assertion error: shouldRunMinTemperature: should be a holiday - ' + debugConditions(actualTemperature))
