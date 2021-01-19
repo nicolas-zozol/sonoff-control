@@ -14,7 +14,6 @@ function deviceByName(name) {
 
 function shouldPowerOn(name, actualTemperature) {
     const device = deviceByName(name)
-
     const logger = Logger.getLogger(device.name)
     logger.level = LogLevel.Debug;
 
@@ -35,6 +34,9 @@ function shouldPowerOn(name, actualTemperature) {
             ? shouldRunEcoHomeDay(device, actualTemperature)
             : shouldRunComfortHomeDay(device, actualTemperature)
     }
+
+    logger.error('shouldPowerOn | state ex: should be either' +
+        ' holiday/workday/homeday' + debugConditions(actualTemperature))
 
     throw 'Illegal state exception: should be either holiday/workday/homeday'
 }

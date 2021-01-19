@@ -6,6 +6,7 @@ interval: 15
 eco:14
 comfort:19
 offsetTimezone:0
+logLevel: INFO
 
 days
 ----
@@ -33,7 +34,7 @@ id: ABCDE
 name: lili
 temperature: yes
 offsetTemperature: -2
-
+logLevel: DEBUG
 
 ROMANE
 =====

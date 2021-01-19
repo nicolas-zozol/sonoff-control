@@ -8,6 +8,7 @@
     "ecoTemperature": 14,
     "comfortTemperature": 19,
     "minTemperature": 9,
+    "logLevel": "DEBUG",
     "days": {
       "workdays": "mon, tue, thu, fri",
       "homedays": "wed,sat, sun",

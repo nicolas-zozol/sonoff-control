@@ -2,9 +2,14 @@
  * Copyright Nicolas Zozol, Robusta Code 2021
  */
 require('dotenv').config()
+const {Logger, LogLevel} = require('plop-logger')
 const ewelink = require('ewelink-api')
 const shouldPowerOn = require('./dates')
 
+const logger = Logger.getLogger("Work")
+logger.level = LogLevel.Debug;
+
+logger.info("Starting Application")
 
 const devices = {
     lili: process.env.LILI
@@ -25,30 +30,33 @@ connection.getDevices().then(()=> {
 
 
 async function work() {
+
     try {
         const {temperature, power} = await liliStatus()
+        const conditions = JSON.stringify({temperature, power})
 
         if (shouldPowerOn('LILI', temperature)){
             if(!power) {
-                console.log({temperature, power}, "Powering lili on");
+                logger.info(conditions+ " | Powering lili on");
                 await connection.setDevicePowerState(devices.lili, 'on')
             }else{
-                console.log({temperature, power},"Nothing to do");
+                logger.info(conditions+ " | Nothing to do");
             }
 
         }else{
             if(power){
-                console.log({temperature, power},"Powering lili off");
+                logger.info(conditions+ " | Powering lili off");
                 await connection.setDevicePowerState(devices.lili, 'off')
             }else{
-                console.log({temperature, power},"Nothing to do");
+                logger.info(conditions + " | Nothing to do");
             }
         }
 
 
 
     } catch (e) {
-        console.error(e)
+        logger.error('Error on work' + JSON.stringify(e))
+
     }
 }
 

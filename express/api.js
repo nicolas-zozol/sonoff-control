@@ -14,14 +14,17 @@ router.get('/', function (req, res) {
 
     res.setHeader('content-type', 'text/plain');
 
-    const p = path.resolve(__dirname, "../sonoff/plop.log")
+    const p = "plop.log"
     fs.readFile(p, 'utf8', function (err,data) {
         if (err) {
             res.status(404);
             res.send(err)
         }
         res.status(404);
-        res.send(data)
+
+        const lines = data.split('\n').reverse().join('\n')
+
+        res.send(lines)
     });
 
 
