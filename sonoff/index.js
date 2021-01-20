@@ -66,7 +66,7 @@ async function liliStatus() {
     const stringPower = (await connection.getDevicePowerState(devices.lili)).state
 
     const temperature = parseFloat(stringTemperature)
-    const power = stringPower ==='on';
+    const power = (stringPower ==='on');
     return {temperature, power}
 }
 
