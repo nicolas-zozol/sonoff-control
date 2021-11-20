@@ -6,6 +6,7 @@
   "scripts": {
     "express": "pm2 start express/run.js",
     "debug": "node sonoff/index.js",
+    "list": "node sonoff/list.js",
     "start": "pm2 start sonoff/index.js && pm2 start express/run.js",
     "restart": "pm2 restart sonoff/index.js && pm2 restart express/run.js",
     "stop": "pm2 stop sonoff/index.js && pm2 stop express/run.js"
