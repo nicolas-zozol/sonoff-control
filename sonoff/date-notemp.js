@@ -1,3 +1,5 @@
+const {isBoost, isStop} = require( "../rules/boost-and-stop");
+
 /**
  * Copyright Nicolas Zozol, Robusta Code 2021
  */
@@ -15,7 +17,14 @@ function deviceRulesByName(name) {
 function shouldPowerOnNoTemperature(name) {
   const deviceRules = deviceRulesByName(name);
   const logger = getLogger(deviceRules.name);
-
+  if (isBoost(name)) {
+    logger.debug(`${name}: is Boosted !`);
+    return true;
+  }
+  if (isStop(name)) {
+    logger.debug(`${name}: is Stopped !`);
+    return false;
+  }
 
   if (isHoliday(deviceRules)) {
     logger.debug(`${name}: isHoliday no Temperature, always OFF | + ${debugConditions()}`);
