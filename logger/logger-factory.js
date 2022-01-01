@@ -1,5 +1,6 @@
 const {Logger, LogLevel, logLevel} = require('plop-logger')
 var FileAppender = require('./file-appender')
+const configLogLevel = require("../config").logLevel
 
 Logger.config.appender = new FileAppender('plop.log')
 
@@ -13,7 +14,7 @@ createAllLoggers(rules)
 function createAppLogger() {
     const name = 'APP'
     const logger = Logger.getLogger(name)
-    logger.level = LogLevel.Info
+    logger.level = configLogLevel
     loggers[name] = logger
     logger.info('APP logger created')
     return logger

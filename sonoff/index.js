@@ -2,6 +2,9 @@
  * Copyright Nicolas Zozol, Robusta Code 2021
  */
 require('dotenv').config();
+const interval = require("../config").interval
+
+console.log("Running on sonoff")
 
 const {appLogger} = require('../logger/logger-factory');
 
@@ -38,7 +41,7 @@ connection.getDevices().then(() => {
   devices.forEach(device => {
     const {name, id} = device;
     work(id, name);
-    intervalId = setInterval(() => work(id, name), 10 * 60 * 1000);
+    intervalId = setInterval(() => work(id, name), interval * 60 * 1000);
   });
 
 });
