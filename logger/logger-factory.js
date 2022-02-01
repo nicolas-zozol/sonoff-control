@@ -20,6 +20,7 @@ function createAppLogger() {
     return logger
 }
 
+/* There is a logger for the App with name 'APP' but also a logger for each sonoff defined by Json */
 function createAllLoggers(rules) {
     rules.forEach(r => createLogger(r.name, logLevel(r.logLevel) || LogLevel.Info))
     appLogger.info('All loggers created')

@@ -8,7 +8,7 @@
     "ecoTemperature": 15,
     "comfortTemperature": 19,
     "minTemperature": 9,
-    "logLevel": "DEBUG",
+    "logLevel": "INFO",
     "days": {
       "workdays": "mon, tue, thu, fri",
       "homedays": "wed, sat, sun",
@@ -32,7 +32,7 @@
     "ecoTemperature": 14,
     "comfortTemperature": 17,
     "minTemperature": 9,
-    "logLevel": "DEBUG",
+    "logLevel": "INFO",
     "days": {
       "workdays": "mon, tue, wed,thu, fri, sat, sun",
       "homedays": "",
