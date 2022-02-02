@@ -1,11 +1,10 @@
 const {boostMap, isBoost, isStop, setBoost, setStop, stopMap} = require( "../rules/boost-and-stop");
 var rules = require('../rules/rules.json');
-
+var oracle = require('../src/oracle/data')
 var express = require('express');
 var fs = require('fs');
 var path = require('path');
 var router = express.Router();
-
 
 const object ={
     data:{test:"yop"},
@@ -128,6 +127,24 @@ router.post('/stop', function (req, res) {
     setStop(name, time)
     res.status(201);
     res.json(`Stop created for ${time} hours`);
+});
+
+console.log('yo man')
+
+/* GET applog */
+router.get('/oracle', function (req, res) {
+
+    console.log('yo')
+    //res.setHeader('content-type', 'application/json');
+    try{
+        res.status(200);
+        res.json(JSON.stringify(oracle()))
+    }catch (e){
+        res.json(e.toString())
+    }
+
+
+
 });
 
 
