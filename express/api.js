@@ -129,17 +129,16 @@ router.post('/stop', function (req, res) {
     res.json(`Stop created for ${time} hours`);
 });
 
-console.log('yo man')
 
 /* GET applog */
 router.get('/oracle', function (req, res) {
 
-    console.log('yo')
     //res.setHeader('content-type', 'application/json');
     try{
         res.status(200);
-        res.json(JSON.stringify(oracle()))
+        res.json(oracle())
     }catch (e){
+        res.status(500)
         res.json(e.toString())
     }
 
