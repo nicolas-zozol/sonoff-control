@@ -50,19 +50,20 @@ connection.getDevices().then(() => {
 async function work(deviceId, deviceName) {
 
   try {
+
     const {temperature, power} = await deviceStatus(deviceId);
     const conditions = JSON.stringify({temperature, power});
     const devicesRules = deviceRulesByName(deviceName);
 
     // Happens sometimes with bad connection
-    const unsetTemperature = temperature === null || temperature === undefined || temperature < 1;
+    const unsetTemperature = temperature === null || temperature === undefined || temperature < 1 || isNaN(temperature);
 
     if (devicesRules.temperature && unsetTemperature) {
       appLogger.warn('Temperature is null, reloading connection', temperature, conditions);
       connection = createConnection();
     }
 
-    const shouldPower = devicesRules.temperature ?
+    const shouldPower = (devicesRules.temperature && temperature) ?
       shouldPowerOn(deviceName, temperature) :
       shouldPowerOnNoTemperature(deviceName);
 
