@@ -28,7 +28,6 @@ async function loadData(){
       price:values.find(t=>t.symbol === 'ETH').price,
       symbol:'WETH'}
     )
-    console.log('**** updated data', values[0], values[1])
 
   } catch(ex) {
     logger.error(JSON.stringify(ex))
