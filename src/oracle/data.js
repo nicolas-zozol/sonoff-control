@@ -20,14 +20,23 @@ async function loadData(){
     });
     const json = response.data;
     values = json.data.map(t=>({price:t.quote.USD.price, symbol:t.symbol}))
-    values.push({
-      price:values.find(t=>t.symbol === 'BTC').price,
-      symbol:'WBTC'}
-    )
-    values.push({
-      price:values.find(t=>t.symbol === 'ETH').price,
-      symbol:'WETH'}
-    )
+
+    if(!values.some(t=>t.symbol === 'WBTC')){
+      values.push({
+        price:values.find(t=>t.symbol === 'BTC').price,
+        symbol:'WBTC'}
+      )
+    }
+
+    if(!values.some(t=>t.symbol === 'WETH')){
+      values.push({
+        price:values.find(t=>t.symbol === 'ETH').price,
+        symbol:'WETH'}
+      )
+    }
+
+
+
 
   } catch(ex) {
     logger.error(JSON.stringify(ex))
