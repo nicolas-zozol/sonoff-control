@@ -1,6 +1,7 @@
 const axios = require("axios")
 const {getLogger} = require('../../logger/logger-factory');
 const logger = getLogger("APP");
+require('dotenv').config();
 
 let values = []
 
@@ -39,6 +40,7 @@ async function loadData(){
 
 
   } catch(ex) {
+    console.log(ex)
     logger.error(JSON.stringify(ex))
   }
 }
